@@ -42,7 +42,7 @@
 ### 步骤
 
 1. 用 [Fabric 安装器](https://fabricmc.net/use/) 给 26.2 安装 Fabric Loader（最新稳定 0.19.3）。
-2. 把 `build/libs/To-Do list-1.14.0.jar` 放进 `.minecraft/mods/`。
+2. 把 `build/libs/To-Do list-1.0.0.jar` 放进 `.minecraft/mods/`。
 3. 把 Fabric API（`fabric-api-0.158.0+26.2.jar`）也放进 `mods/`。
 4. （可选）把 Mod Menu 20.0.x 放进 `mods/`，可在模组列表里打开设置。
 5. 启动游戏，进存档后按 **M** 即可。
@@ -126,7 +126,7 @@ set JAVA_HOME=<你的Java25路径>
 gradlew.bat build
 ```
 
-构建产物在 `build/libs/To-Do list-1.14.0.jar`。项目结构：
+构建产物在 `build/libs/To-Do list-1.0.0.jar`。项目结构：
 
 ```
 src/main/java        入口与通用代码
