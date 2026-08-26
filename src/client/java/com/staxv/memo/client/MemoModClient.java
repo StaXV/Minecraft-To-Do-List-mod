@@ -1,4 +1,4 @@
-package com.jg.memo.client;
+package com.staxv.memo.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
@@ -9,11 +9,11 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 
 import net.minecraft.client.KeyMapping;
 
-import com.jg.memo.MemoMod;
-import com.jg.memo.client.data.MemoStore;
-import com.jg.memo.client.data.MemoSettingsStore;
-import com.jg.memo.client.hud.PinnedMemoHud;
-import com.jg.memo.client.screen.MemoScreen;
+import com.staxv.memo.MemoMod;
+import com.staxv.memo.client.data.MemoStore;
+import com.staxv.memo.client.data.MemoSettingsStore;
+import com.staxv.memo.client.hud.PinnedMemoHud;
+import com.staxv.memo.client.screen.MemoScreen;
 
 import org.lwjgl.glfw.GLFW;
 

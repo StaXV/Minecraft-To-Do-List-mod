@@ -1,4 +1,4 @@
-package com.jg.memo.client.screen;
+package com.staxv.memo.client.screen;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

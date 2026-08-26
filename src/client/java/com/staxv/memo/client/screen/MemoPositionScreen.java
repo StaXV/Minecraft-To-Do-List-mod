@@ -1,4 +1,4 @@
-package com.jg.memo.client.screen;
+package com.staxv.memo.client.screen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -7,9 +7,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
-import com.jg.memo.client.data.MemoSettings;
-import com.jg.memo.client.data.MemoSettingsStore;
-import com.jg.memo.client.hud.PinnedMemoHud;
+import com.staxv.memo.client.data.MemoSettings;
+import com.staxv.memo.client.data.MemoSettingsStore;
+import com.staxv.memo.client.hud.PinnedMemoHud;
 
 /**
  * Position editor: the live game is shown behind the screen so you can see the

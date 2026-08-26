@@ -1,4 +1,4 @@
-package com.jg.memo.client.data;
+package com.staxv.memo.client.data;
 
 import java.util.UUID;
 

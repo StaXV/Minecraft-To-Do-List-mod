@@ -1,11 +1,11 @@
-package com.jg.memo.client.data;
+package com.staxv.memo.client.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.fabricmc.loader.api.FabricLoader;
 
-import com.jg.memo.MemoMod;
+import com.staxv.memo.MemoMod;
 
 import java.io.IOException;
 import java.io.Reader;

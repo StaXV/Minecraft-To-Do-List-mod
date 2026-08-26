@@ -1,4 +1,4 @@
-package com.jg.memo.client.screen;
+package com.staxv.memo.client.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -6,9 +6,9 @@ import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import com.jg.memo.client.data.MemoSettings;
-import com.jg.memo.client.data.MemoSettingsStore;
-import com.jg.memo.client.screen.widget.SettingsSlider;
+import com.staxv.memo.client.data.MemoSettings;
+import com.staxv.memo.client.data.MemoSettingsStore;
+import com.staxv.memo.client.screen.widget.SettingsSlider;
 
 /**
  * Settings screen, reachable from Mod Menu or from the memo screen itself.

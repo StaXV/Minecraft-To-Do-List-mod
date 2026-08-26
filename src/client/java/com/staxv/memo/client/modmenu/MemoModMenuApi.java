@@ -1,9 +1,9 @@
-package com.jg.memo.client.modmenu;
+package com.staxv.memo.client.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 
-import com.jg.memo.client.screen.MemoSettingsScreen;
+import com.staxv.memo.client.screen.MemoSettingsScreen;
 
 public class MemoModMenuApi implements ModMenuApi {
 	@Override

@@ -1,4 +1,4 @@
-package com.jg.memo;
+package com.staxv.memo;
 
 import net.fabricmc.api.ModInitializer;
 

@@ -1,4 +1,4 @@
-package com.jg.memo.client.screen.widget;
+package com.staxv.memo.client.screen.widget;
 
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;

@@ -1,4 +1,4 @@
-package com.jg.memo.client.data;
+package com.staxv.memo.client.data;
 
 /**
  * Settings for the pinned in-game memo overlay. Serialized as JSON.

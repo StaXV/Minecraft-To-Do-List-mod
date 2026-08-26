@@ -1,15 +1,15 @@
-package com.jg.memo.client.hud;
+package com.staxv.memo.client.hud;
 
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
-import com.jg.memo.client.data.MemoEntry;
-import com.jg.memo.client.data.MemoSettings;
-import com.jg.memo.client.data.MemoSettingsStore;
-import com.jg.memo.client.data.MemoStore;
-import com.jg.memo.client.screen.MemoRender;
+import com.staxv.memo.client.data.MemoEntry;
+import com.staxv.memo.client.data.MemoSettings;
+import com.staxv.memo.client.data.MemoSettingsStore;
+import com.staxv.memo.client.data.MemoStore;
+import com.staxv.memo.client.screen.MemoRender;
 
 import net.minecraft.client.renderer.RenderPipelines;
 

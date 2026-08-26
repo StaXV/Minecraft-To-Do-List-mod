@@ -8,20 +8,20 @@
 		"StaXV"
 	],
 	"contact": {
-		"sources": "https://github.com/JG/memo"
+		"sources": "https://github.com/StaXV/memo"
 	},
 	"license": "MIT",
 	"icon": "assets/memo/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"com.jg.memo.MemoMod"
+			"com.staxv.memo.MemoMod"
 		],
 		"client": [
-			"com.jg.memo.client.MemoModClient"
+			"com.staxv.memo.client.MemoModClient"
 		],
 		"modmenu": [
-			"com.jg.memo.client.modmenu.MemoModMenuApi"
+			"com.staxv.memo.client.modmenu.MemoModMenuApi"
 		]
 	},
 	"depends": {

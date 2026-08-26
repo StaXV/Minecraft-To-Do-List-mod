@@ -1,4 +1,4 @@
-package com.jg.memo.client.screen;
+package com.staxv.memo.client.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -7,8 +7,8 @@ import net.minecraft.client.gui.components.MultiLineEditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import com.jg.memo.client.data.MemoEntry;
-import com.jg.memo.client.data.MemoStore;
+import com.staxv.memo.client.data.MemoEntry;
+import com.staxv.memo.client.data.MemoStore;
 
 /**
  * Add / edit a single memo, using vanilla widgets.
