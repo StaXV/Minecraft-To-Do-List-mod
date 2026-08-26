@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "memo",
+	"version": "${version}",
+	"name": "To-Do List",
+	"description": "游戏内随手记录待办事项的 To-Do List Mod。支持编辑、完成标记、自动保存，并可在游戏界面上固定一个小型待办清单。",
+	"authors": [
+		"StaXV"
+	],
+	"contact": {
+		"sources": "https://github.com/JG/memo"
+	},
+	"license": "MIT",
+	"icon": "assets/memo/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"com.jg.memo.MemoMod"
+		],
+		"client": [
+			"com.jg.memo.client.MemoModClient"
+		],
+		"modmenu": [
+			"com.jg.memo.client.modmenu.MemoModMenuApi"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}
