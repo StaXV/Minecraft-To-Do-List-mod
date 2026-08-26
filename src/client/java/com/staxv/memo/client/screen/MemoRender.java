@@ -6,6 +6,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
+import com.staxv.memo.MemoMod;
+
 /**
  * Small drawing helpers shared by the memo screens. All textures are vanilla
  * GUI sprites so the interface matches Minecraft's own look.
@@ -25,6 +27,9 @@ public final class MemoRender {
 	public static final Identifier SCROLLER = vanilla("widget/scroller");
 	public static final Identifier SCROLLER_BACKGROUND = vanilla("widget/scroller_background");
 	public static final Identifier BOOK = Identifier.withDefaultNamespace("textures/gui/book.png");
+	public static final Identifier STAR = MemoMod.id("memo/star");
+	public static final Identifier STAR_FILLED = MemoMod.id("memo/star_filled");
+	public static final Identifier CROSS = vanilla("widget/cross_button");
 
 	private MemoRender() {
 	}

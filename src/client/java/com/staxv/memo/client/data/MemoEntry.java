@@ -10,6 +10,7 @@ public class MemoEntry {
 	public String title = "";
 	public String content = "";
 	public boolean done = false;
+	public boolean starred = false;
 	public long createdAt = System.currentTimeMillis();
 	public long updatedAt = System.currentTimeMillis();
 

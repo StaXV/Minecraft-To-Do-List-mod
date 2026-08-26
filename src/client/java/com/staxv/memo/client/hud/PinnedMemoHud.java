@@ -14,6 +14,7 @@ import com.staxv.memo.client.screen.MemoRender;
 import net.minecraft.client.renderer.RenderPipelines;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -81,11 +82,17 @@ public final class PinnedMemoHud {
 	}
 
 	private static List<MemoEntry> rows(MemoSettings settings) {
-		List<MemoEntry> rows = new ArrayList<>();
+		List<MemoEntry> source = new ArrayList<>();
 		for (MemoEntry memo : MemoStore.get().memos()) {
 			if (settings.pinnedOnlyUndone && memo.done) {
 				continue;
 			}
+			source.add(memo);
+		}
+		// Starred entries first, otherwise keep creation order.
+		source.sort(Comparator.comparing((MemoEntry memo) -> !memo.starred));
+		List<MemoEntry> rows = new ArrayList<>();
+		for (MemoEntry memo : source) {
 			rows.add(memo);
 			if (rows.size() >= settings.pinnedMaxEntries) {
 				break;

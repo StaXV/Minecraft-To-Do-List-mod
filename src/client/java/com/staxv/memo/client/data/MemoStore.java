@@ -26,6 +26,8 @@ import java.util.Optional;
  * All mutations are saved immediately so nothing is lost when the game closes.
  */
 public final class MemoStore {
+	public static final int MAX_STARRED = 5;
+
 	private static MemoStore instance;
 
 	private static final Type LIST_TYPE = new TypeToken<ArrayList<MemoEntry>>() {
@@ -111,6 +113,32 @@ public final class MemoStore {
 		}
 		MemoEntry entry = found.get();
 		entry.done = !entry.done;
+		entry.touch();
+		save();
+		return true;
+	}
+
+	public int starredCount() {
+		int count = 0;
+		for (MemoEntry entry : memos) {
+			if (entry.starred) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/** Toggles a star. Returns false (and does nothing) if trying to star beyond the limit. */
+	public boolean toggleStar(String id) {
+		Optional<MemoEntry> found = byId(id);
+		if (found.isEmpty()) {
+			return false;
+		}
+		MemoEntry entry = found.get();
+		if (!entry.starred && starredCount() >= MAX_STARRED) {
+			return false;
+		}
+		entry.starred = !entry.starred;
 		entry.touch();
 		save();
 		return true;

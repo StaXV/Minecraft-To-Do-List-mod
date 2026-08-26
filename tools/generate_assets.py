@@ -1,5 +1,6 @@
-"""Generate the Memo mod's PNG icon."""
+"""Generate the Memo mod's PNG assets (icon + star sprites)."""
 
+import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -39,6 +40,27 @@ def make_icon():
     return img
 
 
+def make_stars():
+    def star_points(cx, cy, outer, inner):
+        points = []
+        for i in range(10):
+            angle = math.radians(-90 + i * 36)
+            radius = outer if i % 2 == 0 else inner
+            points.append((cx + radius * math.cos(angle), cy + radius * math.sin(angle)))
+        return points
+
+    size = 16
+    points = star_points(8, 8, 7, 3)
+    unlit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ImageDraw.Draw(unlit).polygon(points, outline=(196, 196, 210, 255))
+    save(unlit, "textures/gui/sprites/memo/star.png")
+
+    lit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ImageDraw.Draw(lit).polygon(points, fill=(255, 213, 79, 255))
+    save(lit, "textures/gui/sprites/memo/star_filled.png")
+
+
 if __name__ == "__main__":
     save(make_icon(), "icon.png")
+    make_stars()
     print("done")

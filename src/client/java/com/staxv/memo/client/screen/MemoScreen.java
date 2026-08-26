@@ -2,6 +2,8 @@ package com.staxv.memo.client.screen;
 
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.input.KeyEvent;
@@ -18,17 +20,18 @@ import java.util.List;
 
 /**
  * The to-do list, presented like the vanilla book: ink text on parchment,
- * paginated five entries per page, with vanilla page-turn buttons.
+ * paginated five entries per page, with a star button and (for done entries)
+ * a delete button on each row.
  */
 public class MemoScreen extends Screen {
 	private static final int BOOK_SIZE = 192;
 	private static final int ITEMS_PER_PAGE = 5;
 	private static final int ROW_HEIGHT = 22;
+	private static final int ICON = 11;
 	private static final long CONFIRM_TIMEOUT = 2500L;
 
 	private static final int INK = 0xFF403218;
 	private static final int INK_DONE = 0xFFA09070;
-	private static final int INK_DELETE = 0xFFA0402E;
 
 	private final List<MemoEntry> memos = new ArrayList<>();
 
@@ -42,8 +45,6 @@ public class MemoScreen extends Screen {
 	private int page;
 	private int pageCount;
 
-	private String armedDeleteId;
-	private long armedDeleteAt;
 	private boolean clearArmed;
 	private long clearArmedAt;
 
@@ -132,17 +133,12 @@ public class MemoScreen extends Screen {
 	public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		super.extractBackground(graphics, mouseX, mouseY, delta);
 		MemoRender.book(graphics, bookLeft, bookTop);
-
 		MemoRender.textCentered(graphics, font, Component.translatable("memo.screen.title"),
 				width / 2, 14, INK);
 
-		long now = System.currentTimeMillis();
-		if (clearArmed && now - clearArmedAt >= CONFIRM_TIMEOUT) {
+		if (clearArmed && System.currentTimeMillis() - clearArmedAt >= CONFIRM_TIMEOUT) {
 			clearArmed = false;
 			clearButton.setMessage(Component.translatable("memo.screen.clear"));
-		}
-		if (armedDeleteId != null && now - armedDeleteAt >= CONFIRM_TIMEOUT) {
-			armedDeleteId = null;
 		}
 
 		if (memos.isEmpty()) {
@@ -173,27 +169,30 @@ public class MemoScreen extends Screen {
 
 	private void renderRow(GuiGraphicsExtractor graphics, MemoEntry memo, int rowY) {
 		MemoRender.sprite(graphics, memo.done ? MemoRender.CHECKBOX_SELECTED : MemoRender.CHECKBOX,
-				listX, rowY + 5, 11, 11);
+				listX, rowY + 5, ICON, ICON);
 
-		boolean armed = memo.id.equals(armedDeleteId) && System.currentTimeMillis() - armedDeleteAt < CONFIRM_TIMEOUT;
-		String text;
-		int color;
-		if (armed) {
-			text = Component.translatable("memo.card.delete_confirm").getString();
-			color = INK_DELETE;
-		} else {
-			text = memo.title != null && !memo.title.isBlank()
-					? memo.title
-					: (memo.content == null || memo.content.isBlank() ? "（无标题）" : firstLine(memo.content));
-			color = memo.done ? INK_DONE : INK;
-		}
+		String text = memo.title != null && !memo.title.isBlank()
+				? memo.title
+				: (memo.content == null || memo.content.isBlank() ? "（无标题）" : firstLine(memo.content));
+		int color = memo.done ? INK_DONE : INK;
 
-		int maxWidth = listW - 20;
+		int starX = listX + listW - ICON;
+		int delX = starX - ICON - 1;
+		int maxWidth = memo.done ? listW - 40 : listW - 28;
 		if (font.width(text) > maxWidth && maxWidth > 10) {
 			text = font.plainSubstrByWidth(text, maxWidth);
 		}
 		Component line = Component.literal(text).withStyle(style -> style.withColor(color).withStrikethrough(memo.done));
-		graphics.text(font, line, listX + 16, rowY + 6, color, false);
+		graphics.text(font, line, listX + 15, rowY + 6, color, false);
+
+		// Delete button (cross) only for done entries, to the left of the star.
+		if (memo.done) {
+			MemoRender.sprite(graphics, MemoRender.CROSS, delX, rowY + 5, ICON, ICON);
+		}
+
+		// Star button, always on the far right.
+		MemoRender.sprite(graphics, memo.starred ? MemoRender.STAR_FILLED : MemoRender.STAR,
+				starX, rowY + 5, ICON, ICON);
 	}
 
 	private String firstLine(String text) {
@@ -217,20 +216,25 @@ public class MemoScreen extends Screen {
 	}
 
 	private void handleRowClick(MemoEntry memo, int button, double mouseX) {
+		int starX = listX + listW - ICON;
+		int delX = starX - ICON - 1;
+
 		if (button == 1) {
-			long now = System.currentTimeMillis();
-			if (memo.id.equals(armedDeleteId) && now - armedDeleteAt < CONFIRM_TIMEOUT) {
-				MemoStore.get().remove(memo.id);
-				armedDeleteId = null;
-				init();
-			} else {
-				armedDeleteId = memo.id;
-				armedDeleteAt = now;
-			}
+			confirmDelete(memo);
 			return;
 		}
 
-		if (button == 0 && mouseX >= listX && mouseX < listX + 11) {
+		if (button == 0 && mouseX >= starX && mouseX < starX + ICON) {
+			toggleStar(memo);
+			return;
+		}
+
+		if (button == 0 && memo.done && mouseX >= delX && mouseX < delX + ICON) {
+			confirmDelete(memo);
+			return;
+		}
+
+		if (button == 0 && mouseX >= listX && mouseX < listX + ICON) {
 			MemoStore.get().toggle(memo.id);
 			init();
 			return;
@@ -239,6 +243,32 @@ public class MemoScreen extends Screen {
 		if (button == 0) {
 			openEdit(memo);
 		}
+	}
+
+	private void toggleStar(MemoEntry memo) {
+		if (!memo.starred && MemoStore.get().starredCount() >= MemoStore.MAX_STARRED) {
+			minecraft.gui.toastManager().addToast(new SystemToast(
+					SystemToast.SystemToastId.PERIODIC_NOTIFICATION,
+					Component.translatable("memo.star.limit.title"),
+					Component.translatable("memo.star.limit")));
+			return;
+		}
+		MemoStore.get().toggleStar(memo.id);
+		init();
+	}
+
+	private void confirmDelete(MemoEntry memo) {
+		String name = memo.title != null && !memo.title.isBlank()
+				? memo.title
+				: (memo.content == null || memo.content.isBlank() ? "" : firstLine(memo.content));
+		Component message = Component.translatable("memo.card.delete_confirm_message", name);
+		minecraft.gui.setScreen(new ConfirmScreen(ok -> {
+			if (ok) {
+				MemoStore.get().remove(memo.id);
+			}
+			minecraft.gui.setScreen(new MemoScreen());
+		}, Component.translatable("memo.card.delete_confirm_title"), message,
+				Component.translatable("memo.card.delete"), Component.translatable("memo.edit.cancel")));
 	}
 
 	@Override
