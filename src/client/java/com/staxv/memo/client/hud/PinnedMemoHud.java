@@ -55,7 +55,7 @@ public final class PinnedMemoHud {
 		Rect rect = rect(settings, mc.getWindow().getGuiScaledWidth(), mc.getWindow().getGuiScaledHeight());
 		graphics.blitSprite(RenderPipelines.GUI_TEXTURED, MemoRender.TOAST, rect.x, rect.y, rect.w, rect.h, alpha);
 		graphics.text(mc.font, Component.translatable("memo.pinned.title"), rect.x + 6, rect.y + 2,
-				MemoRender.withAlpha(0xFFE8E8F0, alpha255), true);
+				MemoRender.withAlpha(0xFFD4AF37, alpha255), true);
 
 		int rowY = rect.y + HEADER_HEIGHT;
 		for (MemoEntry memo : rows(settings)) {
