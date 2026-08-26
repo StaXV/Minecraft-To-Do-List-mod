@@ -52,11 +52,11 @@ def make_stars():
     size = 16
     points = star_points(8, 8, 7, 3)
     unlit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    ImageDraw.Draw(unlit).polygon(points, outline=(200, 200, 212, 255), width=2)
+    ImageDraw.Draw(unlit).polygon(points, fill=(255, 255, 255, 255))
     save(unlit, "textures/gui/sprites/memo/star.png")
 
     lit = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    ImageDraw.Draw(lit).polygon(points, fill=(255, 213, 79, 255), outline=(154, 118, 20, 255), width=2)
+    ImageDraw.Draw(lit).polygon(points, fill=(255, 140, 0, 255))
     save(lit, "textures/gui/sprites/memo/star_filled.png")
 
 
