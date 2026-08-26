@@ -51,7 +51,7 @@ public final class MemoSettingsStore {
 				settings.pinnedEnabled = loaded.pinnedEnabled;
 				settings.pinnedOnlyUndone = loaded.pinnedOnlyUndone;
 				settings.pinnedMaxEntries = clamp(loaded.pinnedMaxEntries, 1, 5);
-				settings.pinnedWidth = clamp(loaded.pinnedWidth, 100, 320);
+				settings.pinnedWidth = clamp(loaded.pinnedWidth, 80, 320);
 				settings.pinnedX = clamp(loaded.pinnedX, 0, 100);
 				settings.pinnedY = clamp(loaded.pinnedY, 0, 100);
 				settings.pinnedOpacity = clamp(loaded.pinnedOpacity, 0, 100);

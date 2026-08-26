@@ -45,10 +45,10 @@ public class MemoSettingsScreen extends Screen {
 				});
 
 		SettingsSlider width = new SettingsSlider(cx, topY + 38, COLUMN_WIDTH, 20, "memo.settings.width",
-				(settings.pinnedWidth - 100) / 220.0,
-				v -> 100 + Math.round(v * 220),
+				(settings.pinnedWidth - 80) / 240.0,
+				v -> 80 + Math.round(v * 240),
 				v -> {
-					settings.pinnedWidth = (int) Math.round(100 + v * 220);
+					settings.pinnedWidth = (int) Math.round(80 + v * 240);
 					MemoSettingsStore.get().save();
 				});
 
